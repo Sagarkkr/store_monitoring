@@ -1,0 +1,19 @@
+version: '3'
+services:
+  nginx:
+      image: nginx:latest
+      ports:
+        - 9011:80
+      volumes:
+        - ./config/nginx:/etc/nginx/conf.d
+        - ./src/static:/store_monitoring/static
+      depends_on:
+        - web
+  web:
+    build: .
+    command: ["./start.sh"]
+    volumes:
+      - .:/store_monitoring
+      - /var/log/store_monitoring:/var/log/store_monitoring
+    expose:
+      - 9011
