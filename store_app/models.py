@@ -1,5 +1,7 @@
 from django.db import models
 
+
+
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
@@ -8,8 +10,8 @@ class BaseModel(models.Model):
         abstract = True
 
 class StoreStatusChoice(models.TextChoices):
-    Active = "ACTIVE"
-    Inactive = "INACTIVE"
+    active = "Active"
+    inactive = "Inactive"
 
 
 class Store(BaseModel):
@@ -23,15 +25,17 @@ class Store(BaseModel):
     def __str__(self) -> str:
         return self.store_id
     
+
+    
 class BusinessHour(BaseModel):
     DAY_CHOICES = [
-        (1, 'Monday'),
-        (2, 'Tuesday'),
-        (3, 'Wednesday'),
-        (4, 'Thursday'),
-        (5, 'Friday'),
-        (6, 'Saturday'),
-        (0, 'Sunday'),
+        (0, 'Monday'),
+        (1, 'Tuesday'),
+        (2, 'Wednesday'),
+        (3, 'Thursday'),
+        (4, 'Friday'),
+        (5, 'Saturday'),
+        (6, 'Sunday'),
     ]
 
     store = models.ForeignKey(Store,on_delete=models.CASCADE,related_name='store_business_hours')
